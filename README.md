@@ -2,16 +2,9 @@
 
 A new Flutter project.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# pbp-flutter-lab" 
+## TUGAS 7
+1. Stateless Widget dapat diartikan sebagai Widget yang tidak dapat dirubah atau tidak akan pernah berubah. Stateful Widget merupakan widget yang dinamis atau dapat berubah. Berbanding terbalik dengan stateless, stateful widget dapat mengupdate tampilan, merubah warna, menambah jumlah baris dll.
+2. Column, Row, Align, Visibility. Column widget digunakan untuk menempatkan widget secara menurun atau vertical. Row widget adalah widget yang digunakan untuk memposisikan widget-widget lainnya secara horizontal. Align widget adalah widget yang digunakan untuk meng-alignkan child-nya di dalam dirinya sendiri dan secara opsional mengukur dirinya sendiri berdasarkan ukuran childnya. Visibility widget adalah widget yang digunakan untuk menghilakan child-nya.
+3. 
+4. Suatu variable yang dideclare Final tidak dapat diubah lagi jika sudah diassign ke suatu value, sedangkan const dapat berubah-ubah.
+5. 
