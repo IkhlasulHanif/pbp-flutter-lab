@@ -32,17 +32,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
+
+
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
   }
 
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Align(
+              Visibility(
+                visible: (_counter != 0)? true : false,
+                child: Align(
                 alignment: Alignment.bottomLeft,
                 child: FloatingActionButton(
                   onPressed: (_counter != 0) ? _decrementCounter : null,
@@ -94,6 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Icon(Icons.remove),
                 ),
               ),
+              ),
+
+
 
               Align(
                 alignment: Alignment.bottomRight,
