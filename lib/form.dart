@@ -7,7 +7,8 @@ class BudgetCard extends StatelessWidget {
   String judul;
   int nominal;
   String jenis;
-  BudgetCard({Key? key, required this.judul, required this.nominal, required this.jenis}) : super(key: key);
+  DateTime tanggal = DateTime.now();
+  BudgetCard({Key? key, required this.judul, required this.nominal, required this.jenis, required this.tanggal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +74,7 @@ class _MyFormPageState extends State<MyFormPage> {
   int nominal = 0;
   String? jenis;
   List<String> listJenis = ['Pemasukan', 'Pengeluaran'];
+  DateTime selectDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,7 +153,21 @@ class _MyFormPageState extends State<MyFormPage> {
                           jenis = newValue!;
                         });
                       },
-                    )
+                    ),
+                    OutlinedButton(
+                        onPressed: () {
+                          showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1950),
+                            lastDate: DateTime(2100),
+                          ).then((value) {
+                            setState(() {
+                              selectDate = value!;
+                            });
+                          });
+                        },
+                        child: Text("Pilih Tanggal"))
                   ],
                 ),
               ),
@@ -168,7 +184,7 @@ class _MyFormPageState extends State<MyFormPage> {
                   ),
                   onPressed: (){
                     if (_formKey.currentState!.validate()) {
-                      listOfCards.add(BudgetCard(judul: judul, nominal: nominal, jenis: jenis!));
+                      listOfCards.add(BudgetCard(judul: judul, nominal: nominal, jenis: jenis!, tanggal : selectDate));
                       showDialog(context: context, builder: (context){
                         return Dialog(
                             shape: RoundedRectangleBorder(
