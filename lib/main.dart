@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:counter_7/drawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,19 +12,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Program Counter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'PBP Tugas 7'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
-  final String title;
+  final String title = 'Program Counter';
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -32,19 +33,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
-
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
   }
 
+  void _decrementCounter() {
+    setState(() {
+      if (_counter != 0){
+        _counter--;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,28 +53,20 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
+        drawer: DrawerWidget(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              if (_counter % 2 != 0)
-                const Text(
-                    'GANJIL',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 15,
-                    )
-                ),
-
-              if (_counter % 2 == 0)
-                const Text(
-                    'GENAP',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 15,
-                    )
-                ),
-
+              // Using ternary operator
+              ((_counter % 2 == 1)
+                  ? const Text('GANJIL', style: TextStyle(
+                  color: Colors.blue
+              ))
+                  : const Text('GENAP', style: TextStyle(
+                  color: Colors.red
+              ))
+              ),
               Text(
                 '$_counter',
                 style: Theme.of(context).textTheme.headline4,
@@ -81,39 +74,26 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(left: 30),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
           child: Row(
+            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Visibility(
-                visible: (_counter != 0)? true : false,
-                child: Align(
-                alignment: Alignment.bottomLeft,
-                child: FloatingActionButton(
-                  onPressed: (_counter != 0) ? _decrementCounter : null,
-                  tooltip: 'Decrement',
-                  backgroundColor: (_counter != 0) ? Colors.blue : Colors.grey,
-                  child: const Icon(Icons.remove),
-                ),
+            children: [
+              FloatingActionButton(
+                onPressed: _incrementCounter,
+                tooltip: 'Increment',
+                child: const Icon(Icons.add),
               ),
+              if (_counter != 0) FloatingActionButton(
+                onPressed: _decrementCounter,
+                tooltip: 'Decrement',
+                child: const Icon(Icons.remove),
               ),
-
-
-
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FloatingActionButton(
-                  onPressed: _incrementCounter,
-                  tooltip: 'Increment',
-                  child: const Icon(Icons.add),
-                ),
-              )
             ],
           ),
-        )
-
+        ) // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
