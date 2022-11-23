@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:counter_7/drawer.dart';
+import 'package:counter_7/page/drawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,15 +58,24 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Using ternary operator
-              ((_counter % 2 == 1)
-                  ? const Text('GANJIL', style: TextStyle(
-                  color: Colors.blue
-              ))
-                  : const Text('GENAP', style: TextStyle(
-                  color: Colors.red
-              ))
-              ),
+              if (_counter % 2 != 0)
+                const Text(
+                    'GANJIL',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
+                    )
+                ),
+
+              if (_counter % 2 == 0)
+                const Text(
+                    'GENAP',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                    )
+                ),
+
               Text(
                 '$_counter',
                 style: Theme.of(context).textTheme.headline4,
@@ -74,26 +83,37 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(left: 30),
           child: Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FloatingActionButton(
-                onPressed: _incrementCounter,
-                tooltip: 'Increment',
-                child: const Icon(Icons.add),
+            children: <Widget>[
+              Visibility(
+                visible: (_counter != 0)? true : false,
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: FloatingActionButton(
+                    onPressed: (_counter != 0) ? _decrementCounter : null,
+                    tooltip: 'Decrement',
+                    backgroundColor: (_counter != 0) ? Colors.blue : Colors.grey,
+                    child: const Icon(Icons.remove),
+                  ),
+                ),
               ),
-              if (_counter != 0) FloatingActionButton(
-                onPressed: _decrementCounter,
-                tooltip: 'Decrement',
-                child: const Icon(Icons.remove),
-              ),
+
+
+
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                  onPressed: _incrementCounter,
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.add),
+                ),
+              )
             ],
           ),
-        ) // This trailing comma makes auto-formatting nicer for build methods.
+        )
     );
   }
 }
